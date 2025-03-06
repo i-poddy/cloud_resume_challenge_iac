@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Cloud Resume Challenge is a hands-on project designed to showcase cloud skills by building and deploying a resume using cloud services like AWS, Azure, or GCP. It involves frontend hosting, backend integration, infrastructure as code, CI/CD, and security best practices, demonstrating proficiency in modern cloud technologies.
+The [Cloud Resume Challenge](https://cloudresumechallenge.dev/) is a hands-on project designed to showcase cloud skills by building and deploying a resume using cloud services like AWS, Azure, or GCP. It involves frontend hosting, backend integration, infrastructure as code, CI/CD, and security best practices, demonstrating proficiency in modern cloud technologies.
 
 ## Architecture
 
@@ -41,7 +41,7 @@ To destroy the infrastructure you should first manually disable and delete the C
 
 ## Author
 
-Gianluca Poddighe - Cloud Engineer & Solution Architect | AWS Certified
+[**Gianluca Poddighe**](https://www.linkedin.com/in/gianluca-poddighe/) - Cloud Engineer & Solution Architect | AWS Certified
 
 ## License
 
