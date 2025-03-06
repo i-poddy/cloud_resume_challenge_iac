@@ -14,6 +14,17 @@ The project consists of the following components:
 - **CI/CD**: GitHub Actions or AWS CodePipeline automating deployments for both frontend and backend.
 - **Monitoring**: CloudWatch for logs and error tracking.
 
+## Project Status
+
+| Component   | Status          | Notes |
+|------------|----------------|-------|
+| **Frontend** | Work in Progress 🛠️ | S3, CloudFront configured, ok script for download frontend code, missing domain configuration on route53, integration with ACM |
+| **Backend**  | Planned 🔜      | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring to be implemented, also missing python backend code |
+| **CI/CD**    | Planned 🔜      | GitHub Actions or AWS CodePipeline for automated deployment and Python testing units |
+| **Improvements**    | Planned 🔜      | Add versioning to S3, better logging, subdomain configurations to free the root domain |
+| **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure using modules to use them in day job |
+
+
 ## Deployment Steps
 
 ### Prerequisites
