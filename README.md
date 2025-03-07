@@ -21,7 +21,7 @@ The project consists of the following components:
 | Component   | Status          | Notes |
 |------------|----------------|-------|
 | **Frontend** | Completed ✅ | S3, CloudFront configured, ok script for download frontend code, missing domain configuration on route53, integration with ACM |
-| **Backend**  | Work in Progress 🛠️      | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring to be implemented, also missing python backend code |
+| **Backend**  | Work in Progress 🛠️      | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring to be implemented, also missing python backend code and js to make request to API Gateway |
 | **CI/CD**    | Planned 🔜      | GitHub Actions or AWS CodePipeline for automated deployment and Python testing units |
 | **Improvements**    | Planned 🔜      | Add versioning to S3, better logging, subdomain configurations to free the root domain |
 | **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure using modules to use them in day job |
@@ -33,12 +33,24 @@ The project consists of the following components:
 - AWS account
 - AWS CLI configured
 - Terraform installed
-- Already purchased Domain
+- Domain registered on Route53
 - 3 GitHub repositories: one for IaC, one for Frontend, one for Backend
+
+### Deploy
+
+Specify your .tfvars file when you deploy your infrastructure
+- Verify your configuration: `terraform validate`
+- Configure your environment variables
+- Configure your local variables using terraform.tfvars files
+- Plan your deployment: `terraform plan --file-var=terraform.tfvars`
+- Execute and create: `terraform apply --file-var=terraform.tfvars`
+
+DO NOT COMMIT YOUR .tfvars FILES OR YOUR ENVIRONMENT VARIABLES! 
 
 ### Notes
 
 To destroy the infrastructure you should first manually disable and delete the CloudFront deployment.
+Then run `terraform destroy`
 
 ## Author
 
