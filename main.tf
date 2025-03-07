@@ -154,14 +154,14 @@ resource "null_resource" "clone_and_upload_frontend" {
 }
 
 # Fetch the existing hosted zone for mydomain since the hosted zone already exist from domain registration
-data "aws_route53_zone" "existing_zone" {
+data "aws_route53_zone" "mydomain" {
   name         = var.my_domain
   private_zone = false
 }
 
 # Create a Route 53 record for www.mydomain.com pointing to CloudFront
 resource "aws_route53_record" "www" {
-  zone_id = data.aws_route53_zone.existing_zone.zone_id
+  zone_id = data.aws_route53_zone.mydomain.zone_id
   name    = "www.${var.my_domain}"
   type    = "A"
 
@@ -174,7 +174,7 @@ resource "aws_route53_record" "www" {
 
 # Create a Route 53 record for mydomain.com (root domain) pointing to CloudFront
 resource "aws_route53_record" "root" {
-  zone_id = data.aws_route53_zone.existing_zone.zone_id
+  zone_id = data.aws_route53_zone.mydomain.zone_id
   name    = var.my_domain
   type    = "A"
 
@@ -208,7 +208,7 @@ resource "aws_route53_record" "cert_validation" {
     }
   }
 
-  zone_id = aws_route53_zone.mydomain.zone_id
+  zone_id = data.aws_route53_zone.mydomain.zone_id
   name    = each.value.name
   type    = each.value.type
   records = [each.value.value]
