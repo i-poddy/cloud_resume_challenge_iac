@@ -31,10 +31,11 @@ resource "random_string" "suffix" {
 
 # Create Bucket
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = "cloud_resume_challenge_${random_string.suffix.result}"  # Change to a globally unique name
+  bucket = "cloud_resume_challenge_${random_string.suffix.result}"  # Use that random string for unique name
 }
 
 # Enable website hosting on the bucket
+# Need to fix the error_document 
 resource "aws_s3_bucket_website_configuration" "website_config" {
   bucket = aws_s3_bucket.website_bucket.id
 
@@ -116,6 +117,7 @@ resource "aws_cloudfront_distribution" "website_distribution" {
   }
 
   # Restrict access to CloudFront only (prevent direct S3 access)
+  # Need to be edited for ACM
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -128,6 +130,9 @@ resource "aws_cloudfront_distribution" "website_distribution" {
 }
 
 # Clone the GitHub repository and upload to S3
+# Works on bash, but if we run from powershell we may have problems. 
+# Refactor this in python? 
+# Also, need to be edited for backend later
 resource "null_resource" "clone_and_upload_frontend" {
   provisioner "local-exec" {
     command = <<EOT
@@ -146,3 +151,6 @@ resource "null_resource" "clone_and_upload_frontend" {
   depends_on = [aws_s3_bucket.website_bucket]
 }
 
+# Route 53 hosted zone to point to the cloudfront distribution
+
+# ACM to deploy SSL/TLS Certificate for HTTPS
