@@ -12,7 +12,7 @@ provider "aws" {
       Owner       = "Gianluca"
       ManagedBy   = "Terraform"
       Environment = terraform.workspace
-      Project = var.project_name
+      Project     = var.project_name
     }
   }
 }
@@ -31,7 +31,7 @@ resource "random_string" "suffix" {
 
 # Create Bucket
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = "cloud_resume_challenge_${random_string.suffix.result}"  # Use that random string for unique name
+  bucket = "cloud_resume_challenge_${random_string.suffix.result}" # Use that random string for unique name
 }
 
 # Enable website hosting on the bucket
@@ -125,7 +125,9 @@ resource "aws_cloudfront_distribution" "website_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
 
@@ -151,6 +153,66 @@ resource "null_resource" "clone_and_upload_frontend" {
   depends_on = [aws_s3_bucket.website_bucket]
 }
 
-# Route 53 hosted zone to point to the cloudfront distribution
+# Route 53 hosted zone DNS Configuration
+resource "aws_route53_zone" "mydomain" {
+  name = var.my_domain
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.mydomain.zone_id
+  name    = "www.${var.my_domain}"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.website_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.website_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
+resource "aws_route53_record" "root" {
+  zone_id = aws_route53_zone.mydomain.zone_id
+  name    = var.my_domain
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.website_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.website_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+}
+
 
 # ACM to deploy SSL/TLS Certificate for HTTPS
+resource "aws_acm_certificate" "cert" {
+  domain_name       = var.my_domain
+  validation_method = "DNS"
+
+  subject_alternative_names = ["www.${var.my_domain}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# Now I need to validate the certificate
+resource "aws_route53_record" "cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+      name  = dvo.resource_record_name
+      type  = dvo.resource_record_type
+      value = dvo.resource_record_value
+    }
+  }
+
+  zone_id = aws_route53_zone.mydomain.zone_id
+  name    = each.value.name
+  type    = each.value.type
+  records = [each.value.value]
+  ttl     = 60
+}
+
+resource "aws_acm_certificate_validation" "cert_validation" {
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
+}

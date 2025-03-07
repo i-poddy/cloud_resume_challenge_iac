@@ -24,7 +24,6 @@ The project consists of the following components:
 | **Improvements**    | Planned 🔜      | Add versioning to S3, better logging, subdomain configurations to free the root domain |
 | **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure using modules to use them in day job |
 
-
 ## Deployment Steps
 
 ### Prerequisites
