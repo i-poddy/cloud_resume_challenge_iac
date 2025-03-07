@@ -118,6 +118,9 @@ resource "aws_cloudfront_distribution" "website_distribution" {
     }
   }
 
+  # Price Class (selecting Price Class 100 for cheaper cost) Use only North America and Europe
+  price_class = "PriceClass_100"
+
   # Restrict access to CloudFront only (prevent direct S3 access)
   # Need to be edited for ACM
   restrictions {
