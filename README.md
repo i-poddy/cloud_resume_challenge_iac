@@ -4,6 +4,8 @@
 
 The [Cloud Resume Challenge](https://cloudresumechallenge.dev/) is a hands-on project designed to showcase cloud skills by building and deploying a resume using cloud services like AWS, Azure, or GCP. It involves frontend hosting, backend integration, infrastructure as code, CI/CD, and security best practices, demonstrating proficiency in modern cloud technologies.
 
+[**Check out my Challenge!**](https://www.gianlucapoddighe.com/)
+
 ## Architecture
 
 The project consists of the following components:
