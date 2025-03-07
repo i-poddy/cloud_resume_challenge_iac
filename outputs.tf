@@ -8,3 +8,7 @@ output "cloudfront_url" {
   value       = aws_cloudfront_distribution.website_distribution.domain_name
 }
 
+output "your_site" {
+  description = "Output the cloudfront distribution URL to check the website"
+  value       = "https://www.${var.my_domain}"
+}

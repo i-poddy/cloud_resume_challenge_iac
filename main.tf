@@ -24,14 +24,14 @@ Host the frontend on S3, use Cloudfront to distribute the content.
 
 # Create Random String for S3 bucket name
 resource "random_string" "suffix" {
-  length  = 6
+  length  = 12
   special = false
   upper   = false
 }
 
 # Create Bucket
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = "cloud_resume_challenge_${random_string.suffix.result}" # Use that random string for unique name
+  bucket = "cloud-resume-challenge-${random_string.suffix.result}" # Use that random string for unique name
 }
 
 # Enable website hosting on the bucket
@@ -63,7 +63,6 @@ resource "aws_s3_bucket_policy" "cloudfront_policy" {
   policy = data.aws_iam_policy_document.cloudfront_s3_policy.json
 }
 
-# IAM policy to allow CloudFront to read from S3
 data "aws_iam_policy_document" "cloudfront_s3_policy" {
   statement {
     actions   = ["s3:GetObject"]
@@ -102,6 +101,9 @@ resource "aws_cloudfront_distribution" "website_distribution" {
   enabled             = true
   default_root_object = "index.html"
 
+  # Add Alternate Domain Names (CNAMEs) here
+  aliases = ["${var.my_domain}", "www.${var.my_domain}"]
+
   # Cache behavior
   default_cache_behavior {
     target_origin_id       = "S3-${aws_s3_bucket.website_bucket.id}"
@@ -135,19 +137,17 @@ resource "aws_cloudfront_distribution" "website_distribution" {
 # Works on bash, but if we run from powershell we may have problems. 
 # Refactor this in python? 
 # Also, need to be edited for backend later
+# NEED A FIX - I need to pass my ENV for the session to work
 resource "null_resource" "clone_and_upload_frontend" {
   provisioner "local-exec" {
     command = <<EOT
-      # Clone GitHub repository
       git clone ${var.frontend_git_repository_url} frontend_repo
-      
-      # Sync repository contents to S3
-      aws s3 sync downloads s3://${aws_s3_bucket.website_bucket.id}/ --acl private
-      
-      # Clean up cloned files
-      rm -rf frontend_repo
+      aws s3 sync frontend_repo s3://${aws_s3_bucket.website_bucket.id}/ --acl private
+      rmdir /s /q frontend_repo
     EOT
+    interpreter = ["cmd", "/C"]
   }
+  
 
   # Ensure this runs after the S3 bucket is created
   depends_on = [aws_s3_bucket.website_bucket]
