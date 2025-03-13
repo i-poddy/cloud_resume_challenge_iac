@@ -11,12 +11,32 @@ variable "my_domain" {
   type        = string
 }
 
-variable "frontend_git_repository_url" {
-  description = "The URL of the Git repository containing the frontend code"
+# CI/CD SETTINGS
+
+variable "github_username" {
+  description = "Your Github Username"
   type        = string
 }
 
-variable "backend_git_repository_url" {
-  description = "The URL of the Git repository containing the backend code" # Maybe I will collapse this in a single repo with IaC 
+variable "github_frontend_repo" {
+  description = "Frontend repo name"
   type        = string
+}
+
+variable "github_backend_repo" {
+  description = "Backend repo name"
+  type        = string
+}
+
+variable "github_token" {
+  description = "GitHub Personal Access Token"
+  type        = string
+  sensitive   = true
+}
+
+# VARIABLES USED IN CODE
+
+locals {
+  frontend_git_repository_url = "https://github.com/${var.github_username}/${var.github_frontend_repo}.git"
+  backend_git_repository_url  = "https://github.com/${var.github_username}/${var.github_backend_repo}.git"
 }

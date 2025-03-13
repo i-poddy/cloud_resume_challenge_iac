@@ -47,3 +47,4 @@ terraform.rc
 # Local Artifacts Download
 **/.downloads/*
 *.downloads/*
+*.zip
