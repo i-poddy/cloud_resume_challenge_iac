@@ -21,8 +21,8 @@ The project consists of the following components:
 | Component   | Status          | Notes |
 |------------|----------------|-------|
 | **Frontend** | Completed ✅ | S3, CloudFront configured, ok script for download frontend code, missing domain configuration on route53, integration with ACM |
-| **Backend**  | Work in Progress 🛠️      | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring to be implemented, also missing python backend code and js to make request to API Gateway |
-| **CI/CD**    | Planned 🔜      | GitHub Actions or AWS CodePipeline for automated deployment and Python testing units |
+| **Backend**  | Work in Progress 🛠️      | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring implemented, also implemented JS on frontend, optimizing and waiting to apply changes |
+| **CI/CD**    | Work in Progress 🛠️      | AWS CodePipeline with CodeBuild and CodeDeploy to create a pipeline for frontend and a pipeline for backend |
 | **Improvements**    | Planned 🔜      | Add versioning to S3, better logging, subdomain configurations to free the root domain |
 | **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure using modules to use them in day job |
 
