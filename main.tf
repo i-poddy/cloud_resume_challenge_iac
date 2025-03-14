@@ -300,8 +300,9 @@ resource "aws_lambda_function" "visit_counter" {
   depends_on = [aws_iam_role_policy_attachment.lambda_dynamodb_attach]
 }
 
-resource "aws_lambda_permission" "api_gateway_invoke" {
-  statement_id  = "AllowAPIGatewayInvoke-1"
+# Lambda permission to be invoked by API Gateway
+resource "aws_lambda_permission" "api_gateway" {
+  statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.visit_counter.function_name
   principal     = "apigateway.amazonaws.com"
@@ -342,15 +343,6 @@ resource "aws_apigatewayv2_stage" "prod" {
   }
 }
 
-# Lambda permission to be invoked by API Gateway
-resource "aws_lambda_permission" "api_gateway" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.visit_counter.function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.resume_api.execution_arn}/*"
-}
-
 # Clone the backend repository
 resource "null_resource" "upload_lambda" {
   provisioner "local-exec" {
@@ -361,11 +353,3 @@ resource "null_resource" "upload_lambda" {
     EOT
   }
 }
-
-
-
-
-
-# Still need to design a way to modify the frontend to use API Gateway url
-# Still need to design a way to upload the lambda zip file
-# CI/CD
