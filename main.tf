@@ -297,7 +297,7 @@ resource "aws_lambda_function" "visit_counter" {
     }
   }
 
-  depends_on                     = [aws_iam_role_policy_attachment.lambda_dynamodb_attach]
+  depends_on = [aws_iam_role_policy_attachment.lambda_dynamodb_attach]
 }
 
 resource "aws_lambda_permission" "api_gateway_invoke" {
