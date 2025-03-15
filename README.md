@@ -30,13 +30,13 @@ The project consists of the following components:
 | Component   | Status          | Notes |
 |------------|----------------|-------|
 
-| **Logging**    | Planned 🔜      | Implement a better logging for the environment and, especially, for the lambda execution, also implement dashboard and alarms in Cloudwatch for observability |
+| **Logging**           | Planned 🔜      | Implement a better logging for the environment and, especially, for the lambda execution, also implement dashboard and alarms in Cloudwatch for observability |
 | **Cleanup Script**    | Planned 🔜      | Create a bash and/or powershell script to perform actions needed before destroy |
 | **Improved CI/CD**    | Planned 🔜      | Write testing units and incorporate them in the CI/CD |
-| **Better frontend**    | Planned 🔜      | Recreate the frontend with better UI/UX design and improve the codebase |
-| **Subdomain usage**    | Planned 🔜      | Refactoring the terraform code to use a subdomain resume.gioanlucapoddighe.com instead of the root domain |
-| **API GW Subdomain**    | Planned 🔜      | Refactoring the code for API Gateway to make it available at resume-api.gianlucapoddighe.com |
-| **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure to support different environments (dev, staging, prod) |
+| **Better frontend**   | Planned 🔜      | Recreate the frontend with better UI/UX design and improve the codebase |
+| **Subdomain usage**   | Planned 🔜      | Refactoring the terraform code to use a subdomain resume.gioanlucapoddighe.com instead of the root domain |
+| **API GW Subdomain**  | Planned 🔜      | Refactoring the code for API Gateway to make it available at resume-api.gianlucapoddighe.com |
+| **Refactoring**       | Planned 🔜      | Refactoring the terraform code to a better structure to support different environments (dev, staging, prod) |
 
 ## Deployment Steps
 
