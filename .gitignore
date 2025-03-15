@@ -51,3 +51,4 @@ terraform.rc
 
 # Ignore draw.io backup files
 *.drawio.bkp
+.*.drawio.bkp
