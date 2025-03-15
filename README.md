@@ -19,23 +19,34 @@ The project consists of the following components:
 
 ## Project Status
 
+### MVP - Version 1.0
 | Component   | Status          | Notes |
 |------------|----------------|-------|
 | **Frontend** | Completed ✅ | S3, CloudFront configured, ok script for download frontend code, missing domain configuration on route53, integration with ACM |
 | **Backend**  | Completed ✅ | API Gateway, Lambda, DynamoDB, IAM roles, and monitoring implemented, also implemented JS on frontend |
 | **CI/CD**    | Completed ✅ | Github actions deploy the code from frontend and backend repository to the respective targets, all configurations, users and permissions on AWS and secrets and vars in Github, are configured with terraform |
-| **Improvements**    | Planned 🔜      | Subdomain configurations to free the root domain, domain for api gw, logic to not update the counter on page reload, testing units, cloudwatch logging, other improvements |
-| **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure using modules to use them in day job |
+
+### Add-on and improvements
+| Component   | Status          | Notes |
+|------------|----------------|-------|
+
+| **Logging**    | Planned 🔜      | Implement a better logging for the environment and, especially, for the lambda execution, also implement dashboard and alarms in Cloudwatch for observability |
+| **Cleanup Script**    | Planned 🔜      | Create a bash and/or powershell script to perform actions needed before destroy |
+| **Improved CI/CD**    | Planned 🔜      | Write testing units and incorporate them in the CI/CD |
+| **Better frontend**    | Planned 🔜      | Recreate the frontend with better UI/UX design and improve the codebase |
+| **Subdomain usage**    | Planned 🔜      | Refactoring the terraform code to use a subdomain resume.gioanlucapoddighe.com instead of the root domain |
+| **API GW Subdomain**    | Planned 🔜      | Refactoring the code for API Gateway to make it available at resume-api.gianlucapoddighe.com |
+| **Refactoring**    | Planned 🔜      | Refactoring the terraform code to a better structure to support different environments (dev, staging, prod) |
 
 ## Deployment Steps
 
 ### Prerequisites
 
-- AWS account
+- AWS account with access keys
 - AWS CLI configured
 - Terraform installed
 - Domain registered on Route53
-- 3 GitHub repositories: one for IaC, one for Frontend, one for Backend
+- 3 GitHub repositories: one for IaC, one for Frontend, one for Backend with access token
 
 ### Deploy
 
