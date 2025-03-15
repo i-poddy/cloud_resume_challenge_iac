@@ -16,18 +16,14 @@ The project consists of the following components:
 The Diagram represent the architecture implemented for my Cloud Resume Challenge. 
 I have used three different colors to represent the four main components of the infrastrucuture and the workflows.
 
-# Cloud Resume Challenge Architecture
-
-## Infrastructure as Code
+### Infrastructure as Code
 
 1. From the GitHub IaC repository, the Owner downloads the Source Code.  
 2. The Owner of the Project runs the Terraform code with the appropriate variables.  
 3. Terraform creates the AWS Cloud Resources.  
 4. Terraform creates the secrets and variables in GitHub Frontend and Backend repositories to be used by the GitHub Actions.  
 
----
-
-## Frontend and Backend Source Code and CI/CD  
+### Frontend and Backend Source Code and CI/CD  
 
 1. The Developer commits the code to the Frontend and Backend repositories.  
 2. The Commit event in the Frontend or Backend repositories triggers the GitHub Action execution.  
@@ -35,9 +31,7 @@ I have used three different colors to represent the four main components of the 
 4. The Backend GitHub Action zips the Python code and uploads it to an S3 bucket created for artifacts.  
 5. The Backend GitHub Action gets the `.zip` artifact and deploys it to the Lambda Function.  
 
----
-
-## Frontend and Backend Resources  
+### Frontend and Backend Resources  
 
 1. The user (or visitor) accesses [My Cloud Resume Challenge Website](https://gianlucapoddighe.com/), and their browser queries the DNS server.  
 2. The DNS, implemented with the Route 53 service, forwards the request to the CloudFront Distribution Endpoint.  
