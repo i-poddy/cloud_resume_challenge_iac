@@ -15,7 +15,7 @@ The project consists of the following components:
 - **CI/CD**: GitHub Actions to deploy the Frontend and Backend code to the S3 for the static website and the lambda function respectively.
 - **Infrastructure as Code**: Provisioned using Terraform for repeatability and automation.
 
-[Read more about the infrastructure](./docs/infrastructure.md)
+[Read more about the infrastructure](./docs/architecture.md)
 
 ## Project Status
 

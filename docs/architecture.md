@@ -16,32 +16,38 @@ The project consists of the following components:
 The Diagram represent the architecture implemented for my Cloud Resume Challenge. 
 I have used three different colors to represent the four main components of the infrastrucuture and the workflows.
 
-### Infrastructure as Code: Green
+# Cloud Resume Challenge Architecture
 
-- <span style="color: green;">1</span> From GitHub IaC repository the Owner download the Source Code
-- <span style="color: green;">2</span> The Owner of the Project runs the Terraform code with the appropriate variables
-- <span style="color: green;">3</span> Terraform creates the AWS Cloud Resources
-- <span style="color: green;">4</span> Terraform creates the secrets and variables in GitHub Frontend and Backend repositories to be used by the GitHub Actions
+## Infrastructure as Code
 
-### Frontend and backend source code and CI/CD: Blue
+1. From the GitHub IaC repository, the Owner downloads the Source Code.  
+2. The Owner of the Project runs the Terraform code with the appropriate variables.  
+3. Terraform creates the AWS Cloud Resources.  
+4. Terraform creates the secrets and variables in GitHub Frontend and Backend repositories to be used by the GitHub Actions.  
 
-- <span style="color: blue;">1</span> The Developer commits the code to the Frontend and Backend repositories  
-- <span style="color: blue;">2</span> The Commit event in the Frontend or in the Frontend repositories trigger the GitHub Action execution
-- <span style="color: blue;">3</span> The Frontend GitHub Action uses the variables set by terraform, modify the Javascipt file with the API Gateway Endpoint, and deploys the code to the S3 static website bucket
-- <span style="color: blue;">4</span> The Backend GitHub Action zip the python code and upload it to a S3 bucket created for artifacts
-- <span style="color: blue;">5</span> The Backend GitHub Action get the .zip artifact and deploys it to the Lambda Function
+---
 
-### Frontend and Backend resources: Orange
+## Frontend and Backend Source Code and CI/CD  
 
-- <span style="color: orange;">1</span> The user (or visitor) access [cloud Resume Challenge](https://cloudresumechallenge.dev/) and his browser queries the DNS server
-- <span style="color: orange;">2</span> The DNS implemented with the Route53 service forward him to the Cloudfront Distribution Endpoint
-- <span style="color: orange;">3</span> The Cloudfront Distribution uses ACM to get the certificate to serve the content in HTTPS  
-- <span style="color: red;">4 (Conditional) </span> **if** the user request is a **cache miss** on the Cloudfront Distribution cache, the CloudFront Distribution get the content from S3  
-- <span style="color: red;">5 (Conditional) </span> S3 return the Website content to the Cloudfront Distribution
-- <span style="color: orange;">6</span> The DNS implemented with the Route53 service forward him to the Cloudfront Distribution Endpoint
-- <span style="color: orange;">7</span> The user browser displays the website to the user and executes the Javasciript which perform a request to the API Gateway to retrieve the Visitor Counter which is now showing **Loading**
-- <span style="color: orange;">8</span> The API Gateway forward the request to the Lambda function and triggers its execution
-- <span style="color: orange;">9</span> The Lambda function retrieve the visitor count from the DynamoDB table 
-- <span style="color: orange;">10</span> The DynamoDB return the visitor counter to the Lambda function
-- <span style="color: orange;">11</span> The Lambda function return the visitor counter to the API Gateway
-- <span style="color: orange;">11</span> The API Gateway return the visitor counter to the user browser which will display it to the user along with the website
+1. The Developer commits the code to the Frontend and Backend repositories.  
+2. The Commit event in the Frontend or Backend repositories triggers the GitHub Action execution.  
+3. The Frontend GitHub Action uses the variables set by Terraform, modifies the JavaScript file with the API Gateway Endpoint, and deploys the code to the S3 static website bucket.  
+4. The Backend GitHub Action zips the Python code and uploads it to an S3 bucket created for artifacts.  
+5. The Backend GitHub Action gets the `.zip` artifact and deploys it to the Lambda Function.  
+
+---
+
+## Frontend and Backend Resources  
+
+1. The user (or visitor) accesses [My Cloud Resume Challenge Website](https://gianlucapoddighe.com/), and their browser queries the DNS server.  
+2. The DNS, implemented with the Route 53 service, forwards the request to the CloudFront Distribution Endpoint.  
+3. The CloudFront Distribution uses ACM to get the certificate to serve the content over HTTPS.  
+4. (Conditional) If the user's request results in a **cache miss** on the CloudFront Distribution cache, the CloudFront Distribution retrieves the content from S3.  
+5. (Conditional) S3 returns the website content to the CloudFront Distribution.  
+6. The DNS, implemented with the Route 53 service, forwards the request to the CloudFront Distribution Endpoint.  
+7. The user's browser displays the website and executes the JavaScript, which performs a request to the API Gateway to retrieve the Visitor Counter, initially showing **Loading**.  
+8. The API Gateway forwards the request to the Lambda function and triggers its execution.  
+9. The Lambda function retrieves the visitor count from the DynamoDB table.  
+10. DynamoDB returns the visitor counter to the Lambda function.  
+11. The Lambda function returns the visitor counter to the API Gateway.  
+12. The API Gateway returns the visitor counter to the user's browser, which displays it along with the website content.  
