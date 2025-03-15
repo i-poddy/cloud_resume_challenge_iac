@@ -1,0 +1,10 @@
+# PROJECT SETTINGS
+
+my_domain = "your-domain.com"
+
+# CI/CD SETTINGS
+
+github_token         = "ghp_your-github-token"
+github_username      = "your-github-username"
+github_frontend_repo = "your-github-frontend-repo"
+github_backend_repo  = "your-github-backend-repo"
