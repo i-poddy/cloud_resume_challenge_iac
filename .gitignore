@@ -48,3 +48,6 @@ terraform.rc
 **/.downloads/*
 *.downloads/*
 *.zip
+
+# Ignore draw.io backup files
+*.drawio.bkp
