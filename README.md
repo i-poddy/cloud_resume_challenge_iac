@@ -29,7 +29,6 @@ The project consists of the following components:
 ### Add-on and improvements
 | Component   | Status          | Notes |
 |------------|----------------|-------|
-
 | **Logging**           | Planned 🔜      | Implement a better logging for the environment and, especially, for the lambda execution, also implement dashboard and alarms in Cloudwatch for observability |
 | **Cleanup Script**    | Planned 🔜      | Create a bash and/or powershell script to perform actions needed before destroy |
 | **Improved CI/CD**    | Planned 🔜      | Write testing units and incorporate them in the CI/CD |
